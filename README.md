@@ -3,6 +3,11 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Theory](https://img.shields.io/badge/Theory-Bipolar_Zero-gold.svg)](#core-theory)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19704117.svg)](https://doi.org/10.5281/zenodo.19704117)
+
+[![Author](https://img.shields.io/badge/Author-川上真潔-f39c12?style=for-the-badge)](https://orcid.org/0009-0009-2972-6511)
+
+
 **Tri-Tetra-Integrator** は、世界中のAIが生成する回答を「ベクトル」として評価し、その偏り（バイアス）を特定・統合することで、宇宙の普遍的な真理に最も近い「第4の答え」を導き出すためのオープンソース・メタAIシステムです。
 
 ## 1. Core Theory: 双極ゼロの理論 (Theory of Bipolar Zero)
