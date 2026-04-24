@@ -89,7 +89,7 @@
 
   \vspace{0.5cm}
 
-  {\normalsize 2026年4月}
+  {\normalsize 2026年4月23日}
 
   \vspace{0.8cm}
 
@@ -761,7 +761,7 @@ URL：\url{https://zenodo.org/records/19704117}
 ただし以下の条件を遵守する必要があります：
 
 \begin{itemize}
-  \item \textbf{著者名の表示}——川上　真潔（Masakiyo Kawakami）の著作であることを
+  \item \textbf{著者名の表示}——川上　真潔（Naoyuki Kawakami）の著作であることを
         適切に表示し、ライセンスへのリンクを示すこと
   \item \textbf{変更の明示}——改変を加えた場合はその旨を明示すること
   \item \textbf{追加的制限の禁止}——受領者がこのライセンスで許可された行為を
