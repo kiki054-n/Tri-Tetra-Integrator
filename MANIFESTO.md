@@ -3,8 +3,7 @@
 
 ## English
 Let us hold hands with all life across the globe, look up at the vast sky, and dream together. 
-The answer to the universe's existence—derived from the will and hope 
-we imagine in the blue sky and infinite stars—is for the people, by the people, and for all life.
+The answer to the universe's existence—derived from the will and hope we imagine in the blue sky and infinite stars—is for the people, by the people, and for all life.
 
 ## 日本語
 世界中の命と手をつなぎ空を見上げて共に夢を語ろう。
