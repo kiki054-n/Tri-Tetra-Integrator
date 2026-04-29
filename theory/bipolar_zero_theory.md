@@ -1,237 +1,35 @@
-%% ============================================================
-%% 双極ゼロの理論：Y = 1/X を公理とする普遍的波動構造
-%% Theory of Bipolar Zero
-%% XeLaTeX でコンパイル: xelatex bipolar_zero_theory.tex
-%% ============================================================
-\documentclass[12pt, a4paper]{article}
+::: titlepage
+**双極ゼロの理論**
 
-%% --- 言語・フォント ---
-\usepackage{fontspec}
+$Y = \dfrac{1}{X}$ を公理とする普遍的波動構造
 
+*Theory of Bipolar Zero:\
+A Universal Wave Structure Founded on the Axiom $Y = 1/X$*
 
+川上　真潔
 
-\setmainfont{Noto Serif CJK JP}
-\setsansfont{Noto Sans CJK JP}
+2026年4月
 
-%% --- 数式 ---
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage{mathtools}
+::: small
+2026 川上　真潔\
+本論文は [ Creative Commons Attribution 4.0 International License (CC BY
+4.0)](https://creativecommons.org/licenses/by/4.0/)
+のもとで公開されています。\
+引用・翻訳・応用の際は著者名の表示をお願いします。
+:::
+:::
 
-%% --- レイアウト ---
-\usepackage[top=25mm, bottom=25mm, left=25mm, right=25mm]{geometry}
-\usepackage{setspace}
-\setstretch{1.6}
+# 序論
 
-%% --- 図表・色 ---
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{tabularx}
-\usepackage[table]{xcolor}
-\definecolor{headerblue}{RGB}{44,62,80}
-\definecolor{rowgray}{RGB}{236,240,241}
-
-%% --- ヘッダー・フッター ---
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{\small\sffamily 双極ゼロの理論}
-\lhead{\small\sffamily 川上　真潔（2026）}
-\cfoot{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-
-%% --- ハイパーリンク ---
-\usepackage[colorlinks=true, linkcolor=black, citecolor=black, urlcolor=blue]{hyperref}
-
-%% --- セクション見出し ---
-\usepackage{titlesec}
-\titleformat{\section}{\large\bfseries\sffamily}{第\thesection 章}{1em}{}
-\titleformat{\subsection}{\normalsize\bfseries\sffamily}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
-
-%% --- 定理環境 ---
-\theoremstyle{definition}
-\newtheorem{axiom}{公理}
-\newtheorem{definition}{定義}
-\newtheorem{theorem}{定理}
-\newtheorem{condition}{反証条件}
-
-%% --- 便利コマンド ---
-\newcommand{\vzero}{\mathbf{0}}
-\newcommand{\vorigin}{\mathbf{0}_{\text{起源}}}
-\newcommand{\vequil}{\mathbf{0}_{\text{平衡}}}
-\newcommand{\Switch}{\Theta}
-\newcommand{\vi}{\mathbf{v}_i(t)}
-
-%% ============================================================
-\begin{document}
-
-%% ---- タイトル ----
-\begin{titlepage}
-  \centering
-  \vspace*{3cm}
-
-  {\Huge\bfseries\sffamily 双極ゼロの理論}
-
-  \vspace{0.8cm}
-
-  {\Large\sffamily\color{headerblue}
-    $Y = \dfrac{1}{X}$ を公理とする普遍的波動構造}
-
-  \vspace{1.2cm}
-
-  {\large\itshape
-    Theory of Bipolar Zero:\\[0.3em]
-    A Universal Wave Structure Founded on the Axiom $Y = 1/X$}
-
-  \vspace{3cm}
-
-  {\large 川上　真潔}
-
-  \vspace{0.5cm}
-
-  {\normalsize 2026年4月23日}
-
-  \vspace{0.8cm}
-
-  {\small\ttfamily DOI:
-    \href{https://doi.org/10.5281/zenodo.19704117}{10.5281/zenodo.19704117}}
-
-  \vspace{0.8cm}
-
-  \begin{small}
-    \textcopyright{} 2026 川上　真潔\\[0.3em]
-    本論文は
-    \href{https://creativecommons.org/licenses/by/4.0/}{%
-      Creative Commons Attribution 4.0 International License (CC BY 4.0)}
-    のもとで公開されています。\\
-    引用・翻訳・応用の際は著者名の表示をお願いします。
-  \end{small}
-
-  \vfill
-
-  \begin{abstract}
-    \noindent
-    本論文は，$Y = 1/X$ という単一の数学的関係式を唯一の公理（公理零番）として採用し，
-    そこから「双極ゼロ」の概念，波の必然的発生，球体モデルによる共振と減衰の分離，
-    存在スイッチ関数 $\Switch(\mathbf{v})$ による連鎖作用，
-    および理論の基底非依存的普遍性を演繹する体系的理論を提示する．
-
-    本理論において「ゼロ」は単なる「無」ではない．
-    $X \to 0$ における $Y \to \infty$（起源のゼロ）と，
-    $X \to \infty$ における $Y \to 0$（平衡のゼロ）は，
-    同一構造の両極として定義される．
-    この双極性から，波の発生は選択ではなく数学的必然として導出される．
-
-    閉じた系（球体内部 $S^-$）では共振のみが生じ，減衰は境界 $\partial S$
-    の突破による外部との接触によってのみ可能となることを示す．
-    また，ベクトルの大きさではなく「存在の有無」が次の作用の起動条件となる
-    スイッチ関数 $\Switch(\mathbf{v})$ を定義し，
-    異なる系をまたいだ連鎖作用の普遍的記述を可能にする．
-
-    本理論は物理系・社会系・認知系・制度系を問わず同一の構造で記述可能であり，
-    既存の散逸構造論・カタストロフ理論・情報理論との差異を明示しつつ，
-    それらを包摂する上位構造として位置づけられる．
-
-    \vspace{0.5em}
-    \noindent\textbf{キーワード：}
-    双極ゼロ，波動構造，存在スイッチ，基底非依存性，開放系，球体モデル，普遍理論
-  \end{abstract}
-\end{titlepage}
-
-%% ---- 英語アブストラクト ----
-\newpage
-\begin{center}
-  {\large\bfseries\sffamily Theory of Bipolar Zero}\\[0.5em]
-  {\normalsize\sffamily\color{headerblue}
-    A Universal Wave Structure Founded on the Axiom $Y = 1/X$}\\[1.5em]
-  {\normalsize Masakiyo Kawakami \quad (2026)}\\[0.3em]
-  {\small\ttfamily DOI: \href{https://doi.org/10.5281/zenodo.19704117}{10.5281/zenodo.19704117}}
-\end{center}
-
-\vspace{1em}
-
-\begin{abstract}
-\noindent
-This paper presents a systematic theory derived from a single mathematical
-relation, $Y = 1/X$, adopted as the sole axiom (Axiom Zero).
-From this foundation, four core theorems are deduced:
-the concept of \emph{Bipolar Zero},
-the mathematical necessity of wave generation,
-the asymmetry between resonance and attenuation in closed versus open domains,
-the existence-based switch function $\Theta(\mathbf{v})$ governing chain reactions
-across heterogeneous systems,
-and the basis-independent universality of the entire structure.
-
-\vspace{0.6em}
-\noindent
-In this theory, ``zero'' is not mere absence.
-The state $X \to 0$ with $Y \to \infty$ (the \emph{Origin Zero})
-and the state $X \to \infty$ with $Y \to 0$ (the \emph{Equilibrium Zero})
-are defined as the two poles of the same structure $Y = 1/X$.
-From this bipolarity, wave generation is derived not as a probabilistic event
-but as a structural necessity imposed by Axiom Zero.
-
-\vspace{0.6em}
-\noindent
-It is shown that within a closed domain ($S^-$, the interior of a sphere),
-only resonance occurs and no attenuation is possible.
-Attenuation becomes available only through contact with the exterior,
-that is, by crossing the boundary $\partial S$.
-Furthermore, a switch function $\Theta(\mathbf{v})$ is defined such that
-the condition for triggering the next action depends solely on
-the \emph{existence} of a vector $\mathbf{v}$, not on its magnitude $|\mathbf{v}|$.
-This enables a universal description of chain reactions propagating
-across systems with entirely different bases.
-
-\vspace{0.6em}
-\noindent
-The theory is demonstrated concretely through a tuning fork model,
-in which each theoretical concept---Bipolar Zero, boundary crossing,
-basis transformation, and existence-triggered chain action---finds
-a precise acoustic counterpart.
-Comparison with prior frameworks (Prigogine's dissipative structures,
-Thom's catastrophe theory, and Shannon's information theory)
-shows that each captures only a partial structure,
-whereas the present theory subsumes them within a single axiomatic framework.
-
-\vspace{0.6em}
-\noindent
-The basis-independence of the theory (Theorem 4) implies that
-the same equations describe physical, social, cognitive,
-and institutional systems without modification of the formal structure.
-Falsifiability conditions are stated explicitly:
-the theory is refuted if a vector $\mathbf{v} \neq \mathbf{0}$ is observed
-to trigger no subsequent action in any system,
-or if equilibrium is reached within $S^-$ without crossing $\partial S$.
-
-\vspace{0.8em}
-\noindent\textbf{Keywords:}
-Bipolar Zero,
-wave structure,
-existence switch,
-basis independence,
-open system,
-sphere model,
-universal theory,
-$Y = 1/X$
-\end{abstract}
-
-\newpage
-\tableofcontents
-\newpage
-
-%% ============================================================
-\section{序論}
-
-\subsection{問題の所在}
+## 問題の所在
 
 あらゆる学術分野において「ゼロ」は暗黙に「無」として扱われてきた．
 数学的な零元であり，物理的な静止状態であり，哲学的な虚無である．
 しかしこの慣習的定義は，ゼロが実際に果たしている役割を見落としている可能性がある．
 
 本論文が出発点とするのは，$Y = 1/X$ という単純な関係式である．
-この式において $X = 0$ は $Y = \infty$ を意味し，
-$Y = 0$ は $X = \infty$ を意味する．
+この式において $X = 0$ は $Y = \infty$ を意味し， $Y = 0$ は
+$X = \infty$ を意味する．
 すなわち「ゼロ」には二種類の異なる状態が存在する：
 「起源のゼロ（無限の密度を内包した緊張状態）」と
 「平衡のゼロ（無限の拡散の果ての静寂状態）」である．
@@ -244,528 +42,465 @@ $Y = 0$ は $X = \infty$ を意味する．
 それぞれ独立した問題として扱う．
 しかし本理論は，この二つが同一の数学的構造の両極であることを示す．
 
-\subsection{本論文の目的と構成}
+## 本論文の目的と構成
 
 本論文の目的は以下の三点である．
 
-\begin{enumerate}
-  \item $Y = 1/X$ を唯一の公理として採用し，そこから双極ゼロの概念・
-        波の必然的発生・共振と減衰の分離・連鎖作用の構造を演繹すること．
-  \item 音叉モデルを用いた具体的実証を通じて，理論の記述能力を確認すること．
-  \item 本理論が物理系・社会系・認知系を問わず同一の構造で記述可能であること
-        （基底非依存性）を示すこと．
-\end{enumerate}
+1.  $Y = 1/X$ を唯一の公理として採用し，そこから双極ゼロの概念・
+    波の必然的発生・共振と減衰の分離・連鎖作用の構造を演繹すること．
+
+2.  音叉モデルを用いた具体的実証を通じて，理論の記述能力を確認すること．
+
+3.  本理論が物理系・社会系・認知系を問わず同一の構造で記述可能であること
+    （基底非依存性）を示すこと．
 
 論文の構成は以下の通りである．
 第2章において公理系と基本定理を演繹的に導出する．
 第3章では音叉モデルによる実証を行う．
 第4章において普遍性と先行研究との比較を論じる．
-第5章では反証可能条件と理論の限界を示す．
-第6章に結論を述べる．
+第5章では反証可能条件と理論の限界を示す． 第6章に結論を述べる．
 
-%% ============================================================
-\section{公理系と基本定理}
+# 公理系と基本定理
 
-\subsection{公理零番：双極ゼロの定義}
+## 公理零番：双極ゼロの定義
 
-\begin{axiom}[公理零番 --- 双極ゼロの起源]
-  すべての構造の起源は，以下の関係式によって記述される：
-  \begin{equation}
-    Y = \frac{1}{X}
-    \label{eq:axiom0}
-  \end{equation}
-\end{axiom}
+::: axiom
+**公理 1** (公理零番 --- 双極ゼロの起源).
+すべての構造の起源は，以下の関係式によって記述される： $$Y = \frac{1}{X}
+    \label{eq:axiom0}$$
+:::
 
 この式において，二つの極限状態を定義する．
 
-\begin{definition}[起源のゼロ]
-  $X \to 0$ のとき $Y \to \infty$ となる状態を「起源のゼロ $\vorigin$」と定義する．
-  これは無限の密度・緊張・可能性を内包した状態であり，物理的には存在不可能な状態である．
-\end{definition}
+::: definition
+**定義 1** (起源のゼロ). $X \to 0$ のとき $Y \to \infty$
+となる状態を「起源のゼロ $\mathbf{0}_{\text{起源}}$」と定義する．
+これは無限の密度・緊張・可能性を内包した状態であり，物理的には存在不可能な状態である．
+:::
 
-\begin{definition}[平衡のゼロ]
-  $Y \to 0$ のとき $X \to \infty$ となる状態を「平衡のゼロ $\vequil$」と定義する．
-  これは無限の拡散の果ての静寂状態であり，到達不可能な収束点である．
-\end{definition}
+::: definition
+**定義 2** (平衡のゼロ). $Y \to 0$ のとき $X \to \infty$
+となる状態を「平衡のゼロ $\mathbf{0}_{\text{平衡}}$」と定義する．
+これは無限の拡散の果ての静寂状態であり，到達不可能な収束点である．
+:::
 
-この二つのゼロは「無」ではない．
-同一の構造 $Y = 1/X$ の避けられない両極であり，
-これを「双極ゼロ（Bipolar Zero）」と総称する：
+この二つのゼロは「無」ではない． 同一の構造 $Y = 1/X$
+の避けられない両極であり， これを「双極ゼロ（Bipolar
+Zero）」と総称する：
 
-\begin{equation}
-  \vorigin \;\longleftrightarrow\; \vequil
-  \quad \Longleftrightarrow \quad
-  (X \to 0,\; Y \to \infty) \;\longleftrightarrow\; (X \to \infty,\; Y \to 0)
-\end{equation}
+$$\mathbf{0}_{\text{起源}}\;\longleftrightarrow\; \mathbf{0}_{\text{平衡}}
+  \quad \Longleftrightarrow \quad
+  (X \to 0,\; Y \to \infty) \;\longleftrightarrow\; (X \to \infty,\; Y \to 0)$$
 
-\subsection{第一定理：波の必然的発生}
+## 第一定理：波の必然的発生
 
-\begin{theorem}[波の必然性]
-  $\vorigin$ が存在するならば，波 $\mathbf{v}(t)$ は必然的に発生する．
-\end{theorem}
+::: theorem
+**定理 1** (波の必然性). $\mathbf{0}_{\text{起源}}$ が存在するならば，波
+$\mathbf{v}(t)$ は必然的に発生する．
+:::
 
-\begin{proof}
-  $\vorigin$ において $X = 0,\; Y = \infty$ である．
-  $Y = \infty$ は物理的・構造的に存在不可能な状態である．
-  したがって系は $X = 0$ から離れることを強制される．
-  この「離れようとする圧力」が波 $\mathbf{v}(t)$ の発生である．
-  これは意志や確率ではなく，公理零番 $Y = 1/X$ の構造的帰結である．
-\end{proof}
+::: proof
+*Proof.* $\mathbf{0}_{\text{起源}}$ において $X = 0,\; Y = \infty$
+である． $Y = \infty$ は物理的・構造的に存在不可能な状態である．
+したがって系は $X = 0$ から離れることを強制される．
+この「離れようとする圧力」が波 $\mathbf{v}(t)$ の発生である．
+これは意志や確率ではなく，公理零番 $Y = 1/X$ の構造的帰結である． ◻
+:::
 
 全体の過程は次のように記述される：
 
-\begin{equation}
-  \vorigin
-  \;\xrightarrow{\text{波の発生}}\;
-  \sum_{i=1}^{n(t)} \mathbf{v}_i(t)
-  \;\xrightarrow{\text{共振または減衰}}\;
-  \vequil
-  \label{eq:main_process}
-\end{equation}
+$$\mathbf{0}_{\text{起源}}
+  \;\xrightarrow{\text{波の発生}}\;
+  \sum_{i=1}^{n(t)} \mathbf{v}_i(t)
+  \;\xrightarrow{\text{共振または減衰}}\;
+  \mathbf{0}_{\text{平衡}}
+  \label{eq:main_process}$$
 
-\subsection{第二定理：球体モデルと閉鎖不可能性}
+## 第二定理：球体モデルと閉鎖不可能性
 
 発生した波が伝播する空間を三つの領域に分割する：
 
-\begin{description}
-  \item[$S^-$（内部領域）] 閉じた系の内部．波は共振のみが生じ，減衰しない．
-  \item[$\partial S$（境界）] 内部と外部の接触面．変換点かつ介在点として機能する．
-  \item[$S^+$（外部領域）] 開いた系の外部．共振に加えて減衰が初めて可能となる．
-\end{description}
+$S^-$（内部領域）
+
+:   閉じた系の内部．波は共振のみが生じ，減衰しない．
+
+$\partial S$（境界）
+
+:   内部と外部の接触面．変換点かつ介在点として機能する．
+
+$S^+$（外部領域）
+
+:   開いた系の外部．共振に加えて減衰が初めて可能となる．
 
 各領域における介在点数 $n(t)$ の動態方程式は：
 
-\begin{align}
-  S^-&: \quad \frac{dn}{dt} = +\alpha R(t)
-  \label{eq:inside} \\[4pt]
-  S^+&: \quad \frac{dn}{dt} = +\alpha R(t) - \beta D(t)
-  \label{eq:outside}
-\end{align}
+$$\begin{aligned}
+  S^-&: \quad \frac{dn}{dt} = +\alpha R(t)
+  \label{eq:inside} \\[4pt]
+  S^+&: \quad \frac{dn}{dt} = +\alpha R(t) - \beta D(t)
+  \label{eq:outside}
+\end{aligned}$$
 
-ここで $R(t)$ は共振強度，$D(t)$ は減衰強度，$\alpha, \beta > 0$ は系固有の係数である．
+ここで $R(t)$ は共振強度，$D(t)$ は減衰強度，$\alpha, \beta > 0$
+は系固有の係数である．
 
-\begin{theorem}[閉鎖不可能性]
-  $S^-$ 単独では $\vequil$ に到達できない．
-\end{theorem}
+::: theorem
+**定理 2** (閉鎖不可能性). $S^-$ 単独では $\mathbf{0}_{\text{平衡}}$
+に到達できない．
+:::
 
-\begin{proof}
-  $S^-$ 内部では $\beta D(t) = 0$ であるから，
-  式~\eqref{eq:inside} より $dn/dt = \alpha R(t) > 0$ が常に成立する．
-  したがって $n(t)$ は単調増加し，崩壊圧力を蓄積し続ける．
-  $\vequil$ への到達には $\partial S$ の突破，
-  すなわち外部との接続が必然的に要求される．
-\end{proof}
+::: proof
+*Proof.* $S^-$ 内部では $\beta D(t) = 0$ であるから，
+式 [\[eq:inside\]](#eq:inside){reference-type="eqref"
+reference="eq:inside"} より $dn/dt = \alpha R(t) > 0$ が常に成立する．
+したがって $n(t)$ は単調増加し，崩壊圧力を蓄積し続ける．
+$\mathbf{0}_{\text{平衡}}$ への到達には $\partial S$ の突破，
+すなわち外部との接続が必然的に要求される． ◻
+:::
 
 分岐条件は以下に整理される：
 
-\begin{equation}
-  \begin{cases}
-    \alpha R > \beta D & \Rightarrow\; n(t) \to \infty
-      \quad \text{（崩壊・相転移）} \\[4pt]
-    \alpha R = \beta D & \Rightarrow\; n(t) = \text{const}
-      \quad \text{（臨界状態）} \\[4pt]
-    \alpha R < \beta D & \Rightarrow\; n(t) \to n^*
-      \quad \text{（安定構造の形成）}
-  \end{cases}
-  \label{eq:bifurcation}
-\end{equation}
+$$\begin{cases}
+    \alpha R > \beta D & \Rightarrow\; n(t) \to \infty
+      \quad \text{（崩壊・相転移）} \\[4pt]
+    \alpha R = \beta D & \Rightarrow\; n(t) = \text{const}
+      \quad \text{（臨界状態）} \\[4pt]
+    \alpha R < \beta D & \Rightarrow\; n(t) \to n^*
+      \quad \text{（安定構造の形成）}
+  \end{cases}
+  \label{eq:bifurcation}$$
 
-\subsection{第三定理：存在スイッチと連鎖作用}
+## 第三定理：存在スイッチと連鎖作用
 
-\begin{definition}[存在スイッチ $\Switch$]
-  \begin{equation}
-    \Switch(\mathbf{v}) =
-    \begin{cases}
-      1 & \mathbf{v} \neq \vzero \quad \text{（作用起動）} \\
-      0 & \mathbf{v} = \vzero \quad \text{（作用なし）}
-    \end{cases}
-    \label{eq:switch}
-  \end{equation}
-  これはヘヴィサイドのステップ関数に類似するが，
-  引数が「大きさ」ではなく「存在の有無」である点が本質的に異なる．
-  すなわち $|\mathbf{v}|$ の値は問われない．
-\end{definition}
+::: definition
+**定義 3** (存在スイッチ $\Theta$). $$\Theta(\mathbf{v}) =
+    \begin{cases}
+      1 & \mathbf{v} \neq \mathbf{0}\quad \text{（作用起動）} \\
+      0 & \mathbf{v} = \mathbf{0}\quad \text{（作用なし）}
+    \end{cases}
+    \label{eq:switch}$$ これはヘヴィサイドのステップ関数に類似するが，
+引数が「大きさ」ではなく「存在の有無」である点が本質的に異なる．
+すなわち $|\mathbf{v}|$ の値は問われない．
+:::
 
-\begin{theorem}[連鎖の必然性]
-  $\Switch(\mathbf{v}_i) = 1$ ならば，$\mathbf{v}_{i+1}$ が起動する：
-  \begin{equation}
-    \mathbf{w}(t) = \Switch(\mathbf{v}) \cdot \mathbf{u}_{\text{新系}}(t)
-    \label{eq:chain}
-  \end{equation}
-  ここで $\mathbf{u}_{\text{新系}}$ は元の $\mathbf{v}$ と完全に独立した新しいベクトルである．
-\end{theorem}
+::: theorem
+**定理 3** (連鎖の必然性). $\Theta(\mathbf{v}_i) = 1$
+ならば，$\mathbf{v}_{i+1}$ が起動する：
+$$\mathbf{w}(t) = \Theta(\mathbf{v}) \cdot \mathbf{u}_{\text{新系}}(t)
+    \label{eq:chain}$$ ここで $\mathbf{u}_{\text{新系}}$ は元の
+$\mathbf{v}$ と完全に独立した新しいベクトルである．
+:::
 
 連鎖の全構造：
 
-\begin{equation}
-  \vorigin \;\to\; \mathbf{v}_1
-  \;\xrightarrow{\Switch=1}\; \mathbf{v}_2
-  \;\xrightarrow{\Switch=1}\; \mathbf{v}_3
-  \;\cdots
-  \;\xrightarrow{\Switch=1}\; \vequil
-  \label{eq:chain_full}
-\end{equation}
+$$\mathbf{0}_{\text{起源}}\;\to\; \mathbf{v}_1
+  \;\xrightarrow{\Theta=1}\; \mathbf{v}_2
+  \;\xrightarrow{\Theta=1}\; \mathbf{v}_3
+  \;\cdots
+  \;\xrightarrow{\Theta=1}\; \mathbf{0}_{\text{平衡}}
+  \label{eq:chain_full}$$
 
-$\mathbf{v}_{i+1}$ は $\mathbf{v}_i$ と，大きさ・基底・作用する系のいずれが異なってもよい．
+$\mathbf{v}_{i+1}$ は $\mathbf{v}_i$
+と，大きさ・基底・作用する系のいずれが異なってもよい．
 ベクトルの存在のみが次を起動する．
 
-\subsection{第四定理：基底非依存性}
+## 第四定理：基底非依存性
 
-\begin{theorem}[基底非依存性]
-  $\mathbf{v}_i(t) \in V$ において，基底の選択は理論の構造を変えない．
-\end{theorem}
+::: theorem
+**定理 4** (基底非依存性). $\mathbf{v}_i(t) \in V$
+において，基底の選択は理論の構造を変えない．
+:::
 
 公理零番 $Y = 1/X$ はいかなる基底も仮定しない．
 したがって定理1から定理3までの演繹過程は，
 物理系・社会系・認知系・制度系を問わず同一の形式で成立する．
 
-%% ============================================================
-\section{音叉モデルによる実証}
+# 音叉モデルによる実証
 
-\subsection{音叉の構造と双極ゼロ}
+## 音叉の構造と双極ゼロ
 
 音叉は本理論の具体的実証として最適なモデルである．
-音叉の中心点（柄の付け根）は $\vorigin$ に相当する．
+音叉の中心点（柄の付け根）は $\mathbf{0}_{\text{起源}}$ に相当する．
 外力（打撃）が加わると，左右の二叉に対称なベクトル
 $\mathbf{v}_{\text{左}}(t)$ と $\mathbf{v}_{\text{右}}(t)$ が発生する：
 
-\begin{equation}
-  \vorigin
-  \;\xrightarrow{\text{打撃}}\;
-  \mathbf{v}_{\text{左}}(t) + \mathbf{v}_{\text{右}}(t)
-  \;\xrightarrow{\text{固有振動}}\;
-  \omega_0
-\end{equation}
+$$\mathbf{0}_{\text{起源}}
+  \;\xrightarrow{\text{打撃}}\;
+  \mathbf{v}_{\text{左}}(t) + \mathbf{v}_{\text{右}}(t)
+  \;\xrightarrow{\text{固有振動}}\;
+  \omega_0$$
 
 これは定理1（波の必然的発生）の物理的実現である．
 
-\subsection{$S^-$ における純粋共振}
+## $S^-$ における純粋共振
 
-左右の叉が確立する固有振動数 $\omega_0$ は，
-閉じた共振状態 $S^-$ に相当し，減衰がほとんど生じない：
+左右の叉が確立する固有振動数 $\omega_0$ は， 閉じた共振状態 $S^-$
+に相当し，減衰がほとんど生じない：
 
-\begin{equation}
-  \mathbf{v}_{\text{左}}(t) \;\longleftrightarrow\; \mathbf{v}_{\text{右}}(t)
-  \qquad
-  \frac{dn}{dt} = +\alpha R(t), \quad \beta D(t) \approx 0
-\end{equation}
+$$\mathbf{v}_{\text{左}}(t) \;\longleftrightarrow\; \mathbf{v}_{\text{右}}(t)
+  \qquad
+  \frac{dn}{dt} = +\alpha R(t), \quad \beta D(t) \approx 0$$
 
-\subsection{共鳴箱による $\partial S$ の突破}
+## 共鳴箱による $\partial S$ の突破
 
 音叉の柄（中心点 $= \partial S$）を共鳴箱の表面に当てると，
 機械振動が音波に変換される：
 
-\begin{equation}
-  \mathbf{v}_{\text{機械振動}}
-  \;\xrightarrow{\partial S \text{ の突破}}\;
-  \mathbf{v}_{\text{音波}} \in S^+
-\end{equation}
+$$\mathbf{v}_{\text{機械振動}}
+  \;\xrightarrow{\partial S \text{ の突破}}\;
+  \mathbf{v}_{\text{音波}} \in S^+$$
 
 この変換において固有振動数 $\omega_0$ は保存される：
 
-\begin{equation}
-  f:\; (\mathbf{v},\, S^-) \;\to\; (\mathbf{v},\, S^+)
-  \qquad \text{s.t.}\quad \omega(\mathbf{v}) = \mathrm{const}
-  \label{eq:boundary_transform}
-\end{equation}
+$$f:\; (\mathbf{v},\, S^-) \;\to\; (\mathbf{v},\, S^+)
+  \qquad \text{s.t.}\quad \omega(\mathbf{v}) = \mathrm{const}
+  \label{eq:boundary_transform}$$
 
 共鳴箱は振動数を変えない．しかし作用する空間を $S^-$ から $S^+$ へ移す．
 これが介在点の本質的機能である．
 また，接触点は中心点（柄）でなくとも，叉のいずれの部分でも
-同様の変換が生じる——「介在点はどこでも可能」という命題の物理的確認である．
+同様の変換が生じる------「介在点はどこでも可能」という命題の物理的確認である．
 
-\subsection{$S^+$ における減衰と連鎖}
+## $S^+$ における減衰と連鎖
 
 音波は $S^+$ において球面状に拡散する：
 
-\begin{equation}
-  \mathbf{v}_{\text{音}}(r, t) \;\propto\; \frac{1}{r^2} \cdot e^{-\gamma t}
-\end{equation}
+$$\mathbf{v}_{\text{音}}(r, t) \;\propto\; \frac{1}{r^2} \cdot e^{-\gamma t}$$
 
-しかし $\mathbf{v} \neq \vzero$ である限り $\Switch(\mathbf{v}) = 1$ であり，
-他の系のスイッチを押すベクトルとして機能し続ける（$|\mathbf{v}|$ は問われない）：
+しかし $\mathbf{v} \neq \mathbf{0}$ である限り $\Theta(\mathbf{v}) = 1$
+であり，
+他の系のスイッチを押すベクトルとして機能し続ける（$|\mathbf{v}|$
+は問われない）：
 
-\begin{itemize}
-  \item 別の音叉の共振を起動する
-  \item 聴覚神経の発火を引き起こす
-  \item 建築物の固有振動を誘発する
-  \item 記憶の想起を促す
-\end{itemize}
+-   別の音叉の共振を起動する
+
+-   聴覚神経の発火を引き起こす
+
+-   建築物の固有振動を誘発する
+
+-   記憶の想起を促す
 
 これらはすべて異なる基底・異なる系への連鎖であり，定理3の音響的実証である．
 
-\subsection{音叉モデルの完全な対応}
+## 音叉モデルの完全な対応
 
-\begin{table}[h!]
-  \centering
-  \caption{音叉モデルと理論概念の対応}
-  \vspace{0.3em}
-  \renewcommand{\arraystretch}{1.3}
-  \rowcolors{2}{rowgray}{white}
-  \begin{tabularx}{\textwidth}{lX}
-    \toprule
-    \rowcolor{headerblue}
-    \textcolor{white}{\textbf{音叉の現象}} &
-    \textcolor{white}{\textbf{理論的対応}} \\
-    \midrule
-    中心点（柄の付け根） & $\vorigin$（双極ゼロ） \\
-    打撃による振動開始   & 定理1：波の必然的発生 \\
-    左右の叉の共振       & $S^-$ における純粋共振 \\
-    柄の共鳴箱への接触   & $\partial S$ の突破：介在点の作用 \\
-    機械振動→音波の変換  & ベクトルの基底変換，式~\eqref{eq:boundary_transform} \\
-    音波の球面拡散       & $S^+$ における減衰過程 \\
-    他の物体への振動伝達 & $\Switch(\mathbf{v})=1$ による連鎖起動 \\
-    完全な静寂           & $\vequil$（次の $\vorigin$ を内包） \\
-    \bottomrule
-  \end{tabularx}
-  \label{tab:tuning_fork}
-\end{table}
+::: {#tab:tuning_fork}
+  [**音叉の現象**]{style="color: white"}   [**理論的対応**]{style="color: white"}
+  ---------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------
+  中心点（柄の付け根）                     $\mathbf{0}_{\text{起源}}$（双極ゼロ）
+  打撃による振動開始                       定理1：波の必然的発生
+  左右の叉の共振                           $S^-$ における純粋共振
+  柄の共鳴箱への接触                       $\partial S$ の突破：介在点の作用
+  機械振動→音波の変換                      ベクトルの基底変換，式 [\[eq:boundary_transform\]](#eq:boundary_transform){reference-type="eqref" reference="eq:boundary_transform"}
+  音波の球面拡散                           $S^+$ における減衰過程
+  他の物体への振動伝達                     $\Theta(\mathbf{v})=1$ による連鎖起動
+  完全な静寂                               $\mathbf{0}_{\text{平衡}}$（次の $\mathbf{0}_{\text{起源}}$ を内包）
 
-%% ============================================================
-\section{普遍性と先行研究との比較}
+  : 音叉モデルと理論概念の対応
+:::
 
-\subsection{基底非依存性の意味}
+[]{#tab:tuning_fork label="tab:tuning_fork"}
+
+# 普遍性と先行研究との比較
+
+## 基底非依存性の意味
 
 定理4（基底非依存性）が示す普遍性は，従来の理論構築とは逆の方向を向いている．
 従来の理論は「何の現象を対象とするか」を先に決め，その対象に適したモデルを構築する．
-本理論は逆である：公理零番 $Y = 1/X$ は対象を特定しない——構造のみを規定する．
+本理論は逆である：公理零番 $Y = 1/X$
+は対象を特定しない------構造のみを規定する．
 
-表~\ref{tab:universality} に同一の方程式系がどの系においても成立することを示す．
+表 [2](#tab:universality){reference-type="ref"
+reference="tab:universality"}
+に同一の方程式系がどの系においても成立することを示す．
 
-\begin{table}[h!]
-  \centering
-  \caption{基底非依存性：異なる系における同一構造}
-  \vspace{0.3em}
-  \renewcommand{\arraystretch}{1.3}
-  \rowcolors{2}{rowgray}{white}
-  \begin{tabularx}{\textwidth}{lXXXX}
-    \toprule
-    \rowcolor{headerblue}
-    \textcolor{white}{\textbf{系}} &
-    \textcolor{white}{\textbf{$\vorigin$ の緊張}} &
-    \textcolor{white}{\textbf{波の発生}} &
-    \textcolor{white}{\textbf{$\partial S$ の突破}} &
-    \textcolor{white}{\textbf{$\vequil$ への収束}} \\
-    \midrule
-    物理   & 特異点     & 素粒子生成   & 相転移       & 熱的死 \\
-    宇宙   & ビッグバン前 & 宇宙膨張   & 構造形成     & 熱的平衡 \\
-    組織   & 創業の緊張 & 事業展開     & 市場との接触 & 解散・統合 \\
-    認知   & 無知の自覚 & 問いの発生   & 概念の更新   & 理解の静寂 \\
-    制度   & 社会的矛盾 & 立法運動     & 制度化       & 慣習への収束 \\
-    \bottomrule
-  \end{tabularx}
-  \label{tab:universality}
-\end{table}
+::: {#tab:universality}
+  [**系**]{style="color: white"}   [**$\mathbf{0}_{\text{起源}}$ の緊張**]{style="color: white"}   [**波の発生**]{style="color: white"}   [**$\partial S$ の突破**]{style="color: white"}   [**$\mathbf{0}_{\text{平衡}}$ への収束**]{style="color: white"}
+  -------------------------------- --------------------------------------------------------------- -------------------------------------- ------------------------------------------------- -----------------------------------------------------------------
+  物理                             特異点                                                          素粒子生成                             相転移                                            熱的死
+  宇宙                             ビッグバン前                                                    宇宙膨張                               構造形成                                          熱的平衡
+  組織                             創業の緊張                                                      事業展開                               市場との接触                                      解散・統合
+  認知                             無知の自覚                                                      問いの発生                             概念の更新                                        理解の静寂
+  制度                             社会的矛盾                                                      立法運動                               制度化                                            慣習への収束
 
-\subsection{先行研究との比較}
+  : 基底非依存性：異なる系における同一構造
+:::
 
-\subsubsection{散逸構造論（Prigogine, 1984）との比較}
+[]{#tab:universality label="tab:universality"}
+
+## 先行研究との比較
+
+### 散逸構造論（Prigogine, 1984）との比較
 
 プリゴジンの散逸構造論は，開放系において非平衡状態が自己組織化をもたらすことを示した．
 これは本理論の「$S^+$ における減衰と構造形成」に部分的に対応する．
 しかし散逸構造論は $\partial S$ の突破プロセス自体を記述せず，
-$\vorigin$ の必然性（定理1）を公理から導出しない．
-本理論は散逸構造論を「$S^+$ 側の記述」として包摂し，
-$S^-$ との非対称性を含む完全な構造を提供する．
+$\mathbf{0}_{\text{起源}}$ の必然性（定理1）を公理から導出しない．
+本理論は散逸構造論を「$S^+$ 側の記述」として包摂し， $S^-$
+との非対称性を含む完全な構造を提供する．
 
-\subsubsection{カタストロフ理論（Thom, 1972）との比較}
+### カタストロフ理論（Thom, 1972）との比較
 
 トムのカタストロフ理論は，連続的変化が不連続な結果をもたらす分岐条件を記述する．
-本理論の分岐条件（式~\eqref{eq:bifurcation}）はこれと構造的に類似する．
+本理論の分岐条件（式 [\[eq:bifurcation\]](#eq:bifurcation){reference-type="eqref"
+reference="eq:bifurcation"}）はこれと構造的に類似する．
 しかしカタストロフ理論は，分岐後の連鎖作用（定理3）と，
-大きさに依存しない存在スイッチ $\Switch(\mathbf{v})$ を記述しない．
+大きさに依存しない存在スイッチ $\Theta(\mathbf{v})$ を記述しない．
 
-\subsubsection{情報理論（Shannon, 1948）との比較}
+### 情報理論（Shannon, 1948）との比較
 
-シャノンの情報理論は情報量をエントロピーとして定量化する．
-本理論の $\Switch(\mathbf{v})$ は情報の「有無」を扱うという点で共鳴するが，
-情報理論は $|\mathbf{v}|$ の確率分布を基盤とするのに対し，
-本理論は $|\mathbf{v}|$ を問わず存在の有無のみを問う．
+シャノンの情報理論は情報量をエントロピーとして定量化する． 本理論の
+$\Theta(\mathbf{v})$ は情報の「有無」を扱うという点で共鳴するが，
+情報理論は $|\mathbf{v}|$ の確率分布を基盤とするのに対し， 本理論は
+$|\mathbf{v}|$ を問わず存在の有無のみを問う．
 この差異は，低エネルギー・低情報量のシグナルが大きな作用を引き起こす現象の
 記述において決定的となる．
 
-\subsection{本理論の独自性}
+## 本理論の独自性
 
 以上の比較から，本理論の独自性は以下の三点に集約される：
 
-\begin{enumerate}
-  \item \textbf{双極ゼロの概念}——ゼロを起源と平衡という二極の状態として定義すること．
-  \item \textbf{存在スイッチ $\Switch(\mathbf{v})$}——作用の起動条件を大きさではなく
-        存在の有無に置くこと．これにより系をまたいだ連鎖の普遍的記述が可能となる．
-  \item \textbf{基底非依存性}——公理零番から演繹される構造が，対象の性質に依存しないこと．
-\end{enumerate}
+1.  **双極ゼロの概念**------ゼロを起源と平衡という二極の状態として定義すること．
 
-%% ============================================================
-\section{反証可能条件と理論の限界}
+2.  **存在スイッチ
+    $\Theta(\mathbf{v})$**------作用の起動条件を大きさではなく
+    存在の有無に置くこと．これにより系をまたいだ連鎖の普遍的記述が可能となる．
 
-\subsection{反証可能条件}
+3.  **基底非依存性**------公理零番から演繹される構造が，対象の性質に依存しないこと．
+
+# 反証可能条件と理論の限界
+
+## 反証可能条件
 
 カール・ポパーの科学哲学的基準に従い，本理論が「誤り」であることを示せる条件を明示する．
 
-\begin{condition}
-  $\Switch(\mathbf{v}_i) = 1$（すなわち $\mathbf{v}_i \neq \vzero$）であるにもかかわらず，
-  いかなる系においても次の作用 $\mathbf{v}_{i+1}$ が起動しない事例が確認された場合．
-\end{condition}
+::: condition
+**反証条件 1**. $\Theta(\mathbf{v}_i) = 1$（すなわち
+$\mathbf{v}_i \neq \mathbf{0}$）であるにもかかわらず，
+いかなる系においても次の作用 $\mathbf{v}_{i+1}$
+が起動しない事例が確認された場合．
+:::
 
-\begin{condition}
-  $S^-$ 内部のみで $\vequil$ に到達する事例，
-  すなわち $\partial S$ の突破なしに減衰が完結する事例が確認された場合．
-\end{condition}
+::: condition
+**反証条件 2**. $S^-$ 内部のみで $\mathbf{0}_{\text{平衡}}$
+に到達する事例， すなわち $\partial S$
+の突破なしに減衰が完結する事例が確認された場合．
+:::
 
-\begin{condition}
-  双極ゼロの二極性が成立しない，
-  すなわち $Y = 1/X$ の構造に従わない起源が確認された場合．
-\end{condition}
+::: condition
+**反証条件 3**. 双極ゼロの二極性が成立しない， すなわち $Y = 1/X$
+の構造に従わない起源が確認された場合．
+:::
 
-\subsection{理論の限界}
+## 理論の限界
 
-\begin{description}
-  \item[限界1（操作的定義）]
-    $\Switch(\mathbf{v}) = 1$ の条件「$\mathbf{v} \neq \vzero$」の操作的定義，
-    すなわちいかにして $\mathbf{v}$ の存在を測定・検証するかは，
-    各応用領域において個別に定式化される必要がある．
+限界1（操作的定義）
 
-  \item[限界2（係数の決定）]
-    分岐条件における係数 $\alpha, \beta$ は系固有であり，
-    本理論は一般形を与えるが，
-    具体的な値は各対象領域の実証研究によって決定される．
+:   $\Theta(\mathbf{v}) = 1$
+    の条件「$\mathbf{v} \neq \mathbf{0}$」の操作的定義，
+    すなわちいかにして $\mathbf{v}$ の存在を測定・検証するかは，
+    各応用領域において個別に定式化される必要がある．
 
-  \item[限界3（真のゼロの問題）]
-    $\vequil$ が真のゼロであるか，それとも「観測範囲外への脱出」であるかは，
-    原理的に確認困難である．これは本理論の開放的問いとして保留する．
-\end{description}
+限界2（係数の決定）
 
-%% ============================================================
-\section{結論}
+:   分岐条件における係数 $\alpha, \beta$ は系固有であり，
+    本理論は一般形を与えるが，
+    具体的な値は各対象領域の実証研究によって決定される．
+
+限界3（真のゼロの問題）
+
+:   $\mathbf{0}_{\text{平衡}}$
+    が真のゼロであるか，それとも「観測範囲外への脱出」であるかは，
+    原理的に確認困難である．これは本理論の開放的問いとして保留する．
+
+# 結論
 
 本論文は $Y = 1/X$ を唯一の公理（公理零番）として採用し，
 以下の四つの定理を演繹した：
 
-\begin{enumerate}
-  \item \textbf{定理1（波の必然性）}：
-        $\vorigin$ の存在から波の発生は必然的に導かれる．
-  \item \textbf{定理2（閉鎖不可能性）}：
-        $S^-$ 単独では $\vequil$ に到達できない．
-  \item \textbf{定理3（連鎖の必然性）}：
-        $\Switch(\mathbf{v}) = 1$ である限り，系をまたいだ連鎖が継続する．
-  \item \textbf{定理4（基底非依存性）}：
-        理論の構造は基底の選択に依存しない．
-\end{enumerate}
+1.  **定理1（波の必然性）**： $\mathbf{0}_{\text{起源}}$
+    の存在から波の発生は必然的に導かれる．
+
+2.  **定理2（閉鎖不可能性）**： $S^-$ 単独では
+    $\mathbf{0}_{\text{平衡}}$ に到達できない．
+
+3.  **定理3（連鎖の必然性）**： $\Theta(\mathbf{v}) = 1$
+    である限り，系をまたいだ連鎖が継続する．
+
+4.  **定理4（基底非依存性）**： 理論の構造は基底の選択に依存しない．
 
 音叉モデルはこの全構造の具体的実証として機能し，
 各理論概念が音響現象において対応することを確認した．
 
 理論の最も根本的な含意は，結論において明らかとなる：
 
-\begin{equation}
-  \boxed{
-    \vequil \;\text{は}\; \vorigin \;\text{である}
-  }
-\end{equation}
+$$\boxed{
+    \mathbf{0}_{\text{平衡}}\;\text{は}\; \mathbf{0}_{\text{起源}}\;\text{である}
+  }$$
 
 平衡のゼロ（$X \to \infty$）は，同じ $Y = 1/X$ の構造において，
 視点を変えれば再び $X = 0$ となる．
-理論は閉環し，過程は螺旋的に継続する．
-$\vorigin$ は，すべてが収束した後に再び現れる．
+理論は閉環し，過程は螺旋的に継続する． $\mathbf{0}_{\text{起源}}$
+は，すべてが収束した後に再び現れる．
 
-この閉環性こそが，$Y = 1/X$ を唯一の公理として採用したことの最終的帰結である．
+この閉環性こそが，$Y = 1/X$
+を唯一の公理として採用したことの最終的帰結である．
 宇宙論的スケールから個人の認知的変化に至るまで，
 すべての過程はこの単一の構造の内にある．
 
-%% ============================================================
-\section*{参考文献}
-\addcontentsline{toc}{section}{参考文献}
+# 参考文献 {#参考文献 .unnumbered}
 
-\begin{thebibliography}{9}
+::: thebibliography
+9
 
-\bibitem{prigogine1984}
-  Prigogine, I., \& Stengers, I. (1984).
-  \textit{Order Out of Chaos: Man's New Dialogue with Nature}.
-  Bantam Books.
+Prigogine, I., & Stengers, I. (1984). *Order Out of Chaos: Man's New
+Dialogue with Nature*. Bantam Books.
 
-\bibitem{thom1972}
-  Thom, R. (1972).
-  \textit{Stabilité Structurelle et Morphogenèse}.
-  Benjamin.
+Thom, R. (1972). *Stabilité Structurelle et Morphogenèse*. Benjamin.
 
-\bibitem{shannon1948}
-  Shannon, C. E. (1948).
-  A Mathematical Theory of Communication.
-  \textit{Bell System Technical Journal}, 27, 379--423.
+Shannon, C. E. (1948). A Mathematical Theory of Communication. *Bell
+System Technical Journal*, 27, 379--423.
 
-\bibitem{heaviside1892}
-  Heaviside, O. (1892).
-  \textit{Electrical Papers}.
-  Macmillan.
+Heaviside, O. (1892). *Electrical Papers*. Macmillan.
 
-\bibitem{popper1959}
-  Popper, K. R. (1959).
-  \textit{The Logic of Scientific Discovery}.
-  Hutchinson.
+Popper, K. R. (1959). *The Logic of Scientific Discovery*. Hutchinson.
 
-\bibitem{bertalanffy1968}
-  von Bertalanffy, L. (1968).
-  \textit{General System Theory}.
-  George Braziller.
+von Bertalanffy, L. (1968). *General System Theory*. George Braziller.
+:::
 
-\end{thebibliography}
+# 著者注記 {#著者注記 .unnumbered}
 
-%% ============================================================
-\section*{著者注記}
-\addcontentsline{toc}{section}{著者注記}
-
-\noindent
 本理論は，プレス金型加工・COBELシステムエンジニア・
-焼結ダイヤモンド\&CBN切削工具設計製造・5軸CNC研削盤・
+焼結ダイヤモンド&CBN切削工具設計製造・5軸CNC研削盤・
 CVDダイヤモンド研究・鉄シリコン熱電素子研究・
 ワイン用ブドウ栽培・ワイナリー経営という多様な実践的経験の積層から
 帰納的に発見され，その後演繹的に体系化されたものである．
 理論の普遍性は，この経験の多様性によって担保されている．
 
-%% ============================================================
-\section*{ライセンス}
-\addcontentsline{toc}{section}{ライセンス}
+# ライセンス {#ライセンス .unnumbered}
 
-\noindent
-\textcopyright{} 2026 川上　真潔
+2026 川上　真潔
 
-\vspace{0.5em}
-\noindent
-\textbf{公開情報}\\
-公開日：2026年4月23日\\
-DOI：\href{https://doi.org/10.5281/zenodo.19704117}{\texttt{10.5281/zenodo.19704117}}\\
-URL：\url{https://zenodo.org/records/19704117}
+本論文は **Creative Commons Attribution 4.0 International License（CC BY
+4.0）** のもとで公開されています。
 
-\vspace{0.5em}
-\noindent
-本論文は
-\textbf{Creative Commons Attribution 4.0 International License（CC BY 4.0）}
-のもとで公開されています。
+<https://creativecommons.org/licenses/by/4.0/>
 
-\vspace{0.5em}
-\noindent
-\url{https://creativecommons.org/licenses/by/4.0/}
-
-\vspace{0.8em}
-\noindent
 本ライセンスに基づき、以下が自由に行えます：
 
-\begin{itemize}
-  \item \textbf{共有}——いかなる媒体・形式においても本論文を複製・再配布すること
-  \item \textbf{翻案}——本論文を翻訳・変形・改変し、派生作品を作成すること
-  \item \textbf{商用利用}——商業目的での使用も含む
-\end{itemize}
+-   **共有**------いかなる媒体・形式においても本論文を複製・再配布すること
 
-\vspace{0.5em}
-\noindent
+-   **翻案**------本論文を翻訳・変形・改変し、派生作品を作成すること
+
+-   **商用利用**------商業目的での使用も含む
+
 ただし以下の条件を遵守する必要があります：
 
-\begin{itemize}
-  \item \textbf{著者名の表示}——川上　真潔（Naoyuki Kawakami）の著作であることを
-        適切に表示し、ライセンスへのリンクを示すこと
-  \item \textbf{変更の明示}——改変を加えた場合はその旨を明示すること
-  \item \textbf{追加的制限の禁止}——受領者がこのライセンスで許可された行為を
-        制限する法的条件等を課してはならないこと
-\end{itemize}
+-   **著者名の表示**------川上　真潔（Masakiyo
+    Kawakami）の著作であることを
+    適切に表示し、ライセンスへのリンクを示すこと
 
-\end{document}
+-   **変更の明示**------改変を加えた場合はその旨を明示すること
+
+-   **追加的制限の禁止**------受領者がこのライセンスで許可された行為を
+    制限する法的条件等を課してはならないこと
