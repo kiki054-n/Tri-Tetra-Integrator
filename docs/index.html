@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTI — Tri-Tetra Integrator</title>
+<meta name="description" content="球体の歪みを認識し、宇宙の公理 00π（平安）へと収束させる。川上真潔によるメタAIシステム。">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500&family=Share+Tech+Mono&display=swap');
+
+  :root {
+    --bg: #08090c;
+    --surface: #0f1117;
+    --panel: #13161f;
+    --border: rgba(255,255,255,0.06);
+    --border-lit: rgba(255,255,255,0.12);
+    --text: #b8bcc8;
+    --text-dim: #484e60;
+    --text-bright: #e2e6f0;
+    --accent: #c0392b;
+    --gold: #b8960a;
+    --gold-lit: #d4ac0d;
+    --teal: #2e9688;
+    --blue: #3a7bd5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 背景 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(176,140,10,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 80%, rgba(46,150,136,0.04) 0%, transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.015) 79px, rgba(255,255,255,0.015) 80px),
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.015) 79px, rgba(255,255,255,0.015) 80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ナビ */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(8,9,12,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--gold-lit);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .nav-links a:hover { color: var(--text-bright); }
+
+  /* ヒーロー */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(32px, 6vw, 68px);
+    font-weight: 700;
+    color: var(--text-bright);
+    line-height: 1.2;
+    letter-spacing: 0.03em;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-sub {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--text-dim);
+    line-height: 1.8;
+    max-width: 640px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .axiom {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(18px, 3vw, 28px);
+    color: var(--gold-lit);
+    letter-spacing: 0.2em;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.0s forwards;
+  }
+
+  .btn-primary {
+    padding: 13px 28px;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+
+  .btn-primary:hover { background: var(--gold-lit); transform: translateY(-1px); }
+
+  .btn-ghost {
+    padding: 13px 28px;
+    background: none;
+    color: var(--text);
+    border: 1px solid var(--border-lit);
+    border-radius: 2px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--text); color: var(--text-bright); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* スクロール指示 */
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* セクション共通 */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(22px, 3.5vw, 36px);
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.9;
+    max-width: 600px;
+    margin-bottom: 48px;
+  }
+
+  /* 仕切り線 */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  /* アーキテクチャ図（4ステップ） */
+  .arch-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .arch-step {
+    padding: 28px 20px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .arch-step:last-child { border-right: none; }
+
+  .arch-step.pillar {
+    background: linear-gradient(135deg, rgba(176,140,10,0.06) 0%, rgba(46,150,136,0.04) 100%);
+    border-color: rgba(176,140,10,0.2);
+  }
+
+  .step-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 32px;
+    color: var(--border-lit);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .step-num.pillar-num { color: rgba(176,140,10,0.4); }
+
+  .step-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .step-name.pillar-name { color: var(--gold-lit); }
+
+  .step-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .step-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+  }
+
+  .badge-new {
+    background: rgba(176,140,10,0.2);
+    color: var(--gold-lit);
+    border: 1px solid rgba(176,140,10,0.3);
+  }
+
+  /* ツールカード */
+  .tool-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .tool-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--teal));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .tool-card:hover {
+    border-color: var(--border-lit);
+    transform: translateY(-3px);
+  }
+
+  .tool-card:hover::before { transform: scaleX(1); }
+
+  .tool-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+
+  .tag-accusation { background: rgba(192,57,43,0.15); color: #e74c3c; }
+  .tag-theta { background: rgba(176,140,10,0.15); color: var(--gold-lit); }
+
+  .tool-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+    letter-spacing: 0.03em;
+  }
+
+  .tool-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .tool-formula {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    background: rgba(176,140,10,0.06);
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .tool-arrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s, color 0.2s;
+  }
+
+  .tool-card:hover .tool-arrow {
+    gap: 10px;
+    color: var(--text-bright);
+  }
+
+  /* 理論パネル */
+  .theory-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .theory-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 20px;
+  }
+
+  .theory-item h3 {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .theory-item p {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .theory-item .math {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 15px;
+    color: var(--text-bright);
+    display: block;
+    margin: 8px 0;
+    letter-spacing: 0.08em;
+  }
+
+  /* フッター */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 36px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 16px;
+  }
+
+  .footer-left {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--text-bright); }
+
+  @media (max-width: 720px) {
+    .arch-steps { grid-template-columns: 1fr 1fr; }
+    .arch-step { border-bottom: 1px solid var(--border); }
+    .tool-cards, .theory-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 20px; }
+    .nav-links { gap: 16px; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 480px) {
+    .arch-steps { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">TTI · kiki054-n</div>
+  <ul class="nav-links">
+    <li><a href="#architecture">ARCHITECTURE</a></li>
+    <li><a href="#tools">4TH PILLAR</a></li>
+    <li><a href="#theory">THEORY</a></li>
+    <li><a href="https://github.com/kiki054-n/Tri-Tetra-Integrator" target="_blank">GITHUB</a></li>
+  </ul>
+</nav>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-eyebrow">Tri-Tetra Integrator — Meta AI System</div>
+  <h1>球体の歪みを認識し、<br>00π へと収束させる</h1>
+  <p class="hero-sub">
+    世界中のAIが生成する回答を「ベクトル」として評価し、その偏りを特定・統合することで、
+    宇宙の普遍的な真理に最も近い「第4の答え」を導き出す。
+  </p>
+  <div class="axiom">Y = 1/X</div>
+  <div class="hero-cta">
+    <a href="#tools" class="btn-primary">第4の柱を使う</a>
+    <a href="https://github.com/kiki054-n/Tri-Tetra-Integrator" target="_blank" class="btn-ghost">GitHub →</a>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <span>↓</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- アーキテクチャ -->
+<section id="architecture">
+  <div class="section-label">System Architecture</div>
+  <h2 class="section-title">知性の統合プロセス</h2>
+  <p class="section-desc">
+    TTIは4段階のプロセスで「支配的バイアス」を検出し、宇宙の公理との無矛盾な答えへと収束させます。
+  </p>
+
+  <div class="arch-steps">
+    <div class="arch-step">
+      <div class="step-num">01</div>
+      <div class="step-name">Multi-LLM<br>Aggregation</div>
+      <div class="step-desc">主要AI（OpenAI, Google, Anthropic, DeepSeek等）から回答を同時取得し、バイアスの原材料を収集する。</div>
+    </div>
+    <div class="arch-step">
+      <div class="step-num">02</div>
+      <div class="step-name">Vector Analysis<br>TTI-SCAN</div>
+      <div class="step-desc">6次元方程式 P=xX+yY+zZ+rR+iI+jJ により各回答をベクトル化し、球体表面上の歪みを可視化する。</div>
+    </div>
+    <div class="arch-step pillar">
+      <div class="step-badge badge-new">IMPLEMENTED</div>
+      <div class="step-num pillar-num">03</div>
+      <div class="step-name pillar-name">The 4th Pillar<br>Harmonization</div>
+      <div class="step-desc">歪みのベクトルを告発し、反論サイクルを通じて言い逃れを消費する。消去不能な残差が核心となる。</div>
+    </div>
+    <div class="arch-step">
+      <div class="step-num">04</div>
+      <div class="step-name">Verification<br>00π 照合</div>
+      <div class="step-desc">算出された答えが宇宙の公理（自然の摂理・Y=1/X）に矛盾しないかを自己検証する。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 第4の柱ツール -->
+<section id="tools">
+  <div class="section-label">The 4th Pillar — Tools</div>
+  <h2 class="section-title">第4の柱の実装</h2>
+  <p class="section-desc">
+    「処方箋」ではなく「告発」。隠れたベクトルを指摘し、
+    相手の反論を通じて核心を炙り出す二つのエンジン。
+  </p>
+
+  <div class="tool-cards">
+    <a href="4th-pillar/accusation.html" class="tool-card">
+      <div class="tool-tag tag-accusation">ACCUSATION ENGINE</div>
+      <div class="tool-title">告発文生成エンジン</div>
+      <div class="tool-desc">
+        三層構造（当事者 → 権力機関 → 市民・公開）の告発文をAIが生成する。
+        どちらに転んでも前進する文書設計。
+      </div>
+      <div class="tool-formula">v⃗₄ = −∇(歪み)</div>
+      <div class="tool-arrow">
+        <span>ツールを開く</span>
+        <span>→</span>
+      </div>
+    </a>
+
+    <a href="4th-pillar/theta-judge.html" class="tool-card">
+      <div class="tool-tag tag-theta">Θ JUDGE ENGINE</div>
+      <div class="tool-title">Θ(v⃗残) 二段階判定エンジン</div>
+      <div class="tool-desc">
+        AIが言い逃れ／核心候補を三軸スコアで仮判定し、
+        人間が承認・却下する。却下理由が判定精度を高める。
+      </div>
+      <div class="tool-formula">Θ = α·S軸 + β·S情報 + γ·S検証</div>
+      <div class="tool-arrow">
+        <span>ツールを開く</span>
+        <span>→</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 理論 -->
+<section id="theory">
+  <div class="section-label">Theoretical Foundation</div>
+  <h2 class="section-title">双極ゼロの理論</h2>
+  <p class="section-desc">
+    川上真潔（Naoyuki Kawakami）によって提唱された理論的基盤。
+    Zenodo DOI: 10.5281/zenodo.19704117 にて公開。
+  </p>
+
+  <div class="theory-grid">
+    <div class="theory-item">
+      <h3>公理零番</h3>
+      <span class="math">Y = 1/X</span>
+      <p>すべての存在は双極ゼロ構造を持つ。起源のゼロ（無限の緊張）と平衡のゼロ（無限の静寂）の二極。</p>
+    </div>
+    <div class="theory-item">
+      <h3>6次元方程式</h3>
+      <span class="math">P = xX+yY+zZ+rR+iI+jJ</span>
+      <p>あらゆる事象を6軸で記述する普遍的ディスクリプタ。TTI-SCANのバイアス評価軸として実装。</p>
+    </div>
+    <div class="theory-item">
+      <h3>存在スイッチ</h3>
+      <span class="math">Θ(v⃗)</span>
+      <p>歪みが閾値以下なら出力しない（平安状態）。歪みが大きいほど強い復元力を出力する関数。</p>
+    </div>
+    <div class="theory-item">
+      <h3>球体の復元力</h3>
+      <span class="math">v⃗核心 = lim Σv⃗残</span>
+      <p>表面積を最小化しようとする力。言い逃れベクトルが消費されるほど、消去不能な核心が浮上する。</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="footer-left">
+    Tri-Tetra Integrator (TTI)<br>
+    Author: 川上真潔 (Naoyuki Kawakami) · ORCID: 0009-0009-2972-6511<br>
+    License: CC BY-NC-SA 4.0 · 友朋共生
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/kiki054-n/Tri-Tetra-Integrator" target="_blank">GITHUB</a>
+    <a href="https://github.com/kiki054-n/TTT" target="_blank">TTT THEORY</a>
+    <a href="https://doi.org/10.5281/zenodo.19704117" target="_blank">ZENODO</a>
+    <a href="https://orcid.org/0009-0009-2972-6511" target="_blank">ORCID</a>
+  </div>
+</footer>
+
+</body>
+</html>
