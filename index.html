@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A global declaration for those who create with their hands. OPEN YOUR EYES, LOOK AT YOUR HANDS. — Team Shiojiri × ITER Animation Festival Initiative">
+<meta property="og:title" content="LOOK AT YOUR HANDS — World Declaration 2026">
+<meta property="og:description" content="To turn the fire of destruction into the light of creation.">
+<meta property="og:type" content="website">
+<title>LOOK AT YOUR HANDS — 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400&family=Noto+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --ink: #1a1714;
+  --ink-mid: #4a4540;
+  --ink-light: #8a8480;
+  --paper: #f5f2ec;
+  --paper-warm: #ede9e0;
+  --accent: #8b3a2a;
+  --accent-light: #c4785f;
+  --gold: #b8964a;
+  --serif: 'Cormorant Garamond', 'Georgia', serif;
+  --sans-jp: 'Noto Sans JP', sans-serif;
+  --sans: 'Noto Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans-jp);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 4rem 2rem;
+  text-align: center;
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 40%, rgba(139,58,42,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 75% 65%, rgba(184,150,74,0.10) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-year {
+  font-family: var(--serif);
+  font-size: clamp(11px, 1.2vw, 13px);
+  letter-spacing: 0.25em;
+  color: var(--ink-light);
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 8vw, 7rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.05;
+  color: var(--paper);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1.2s 0.5s forwards;
+  max-width: 900px;
+}
+
+.hero-title em {
+  font-style: normal;
+  color: var(--accent-light);
+}
+
+.hero-sub {
+  font-family: var(--sans);
+  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+  letter-spacing: 0.18em;
+  color: var(--ink-light);
+  margin-bottom: 4rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s forwards;
+}
+
+.hero-hashtag {
+  font-family: var(--sans);
+  font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  opacity: 0;
+  animation: fadeUp 1s 1.1s forwards;
+  margin-bottom: 3rem;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s 1.5s forwards;
+  color: var(--ink-light);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  font-family: var(--sans);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--ink-light), transparent);
+  animation: scrollPulse 2s 2s infinite;
+}
+
+/* ── Lang selector ── */
+.lang-section {
+  background: var(--paper-warm);
+  padding: 3rem 2rem 1.5rem;
+  text-align: center;
+  border-bottom: 0.5px solid rgba(0,0,0,0.1);
+}
+
+.lang-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--ink-light);
+  margin-bottom: 1rem;
+  font-family: var(--sans);
+}
+
+.lang-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 0.5px solid rgba(0,0,0,0.2);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--ink-mid);
+  font-family: var(--sans-jp);
+  transition: all 0.2s;
+}
+
+.lang-btn:hover { background: rgba(0,0,0,0.04); }
+.lang-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* ── Declaration ── */
+.decl-section {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+}
+
+.decl-meta {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--ink-light);
+  margin-bottom: 3rem;
+  font-family: var(--sans);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.decl-meta::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: rgba(0,0,0,0.15);
+}
+
+.decl-heading {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.decl-heading-en {
+  font-family: var(--sans);
+  font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+  letter-spacing: 0.15em;
+  color: var(--ink-light);
+  margin-bottom: 3.5rem;
+}
+
+.decl-body {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 2.1;
+  color: var(--ink-mid);
+  white-space: pre-line;
+  font-weight: 300;
+}
+
+.decl-body strong {
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.divider {
+  width: 40px;
+  height: 0.5px;
+  background: var(--accent);
+  margin: 3rem 0;
+}
+
+.decl-signature {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--ink-light);
+  font-family: var(--sans);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.decl-signature::before {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: rgba(0,0,0,0.12);
+}
+
+/* ── Footer ── */
+footer {
+  background: var(--ink);
+  color: var(--ink-light);
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-family: var(--sans);
+  line-height: 2;
+}
+
+footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+footer .tag {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 15px;
+  color: var(--paper);
+  letter-spacing: 0.08em;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.3; }
+  50%      { opacity: 0.8; }
+}
+
+/* ── RTL support ── */
+[dir="rtl"] .decl-meta { flex-direction: row-reverse; }
+[dir="rtl"] .decl-signature { flex-direction: row-reverse; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .hero-title { font-size: clamp(2.2rem, 11vw, 3.5rem); }
+  .decl-section { padding: 3rem 1.5rem 4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero" role="banner">
+  <p class="hero-year">TEAM SHIOJIRI × ITER ANIMATION FESTIVAL INITIATIVE — 2026</p>
+  <h1 class="hero-title">Open your eyes,<br><em>look at your hands.</em></h1>
+  <p class="hero-sub">OPEN YOUR EYES, LOOK AT YOUR HANDS.</p>
+  <p class="hero-hashtag">#LOOKATYOURHANDS</p>
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Language selector -->
+<nav class="lang-section" aria-label="Language selector">
+  <p class="lang-label">SELECT LANGUAGE</p>
+  <div class="lang-list">
+    <button class="lang-btn active" onclick="setLang('ja')" lang="ja">日本語</button>
+    <button class="lang-btn" onclick="setLang('en')" lang="en">English</button>
+    <button class="lang-btn" onclick="setLang('fr')" lang="fr">Français</button>
+    <button class="lang-btn" onclick="setLang('ar')" lang="ar">العربية</button>
+    <button class="lang-btn" onclick="setLang('zh')" lang="zh">中文</button>
+    <button class="lang-btn" onclick="setLang('es')" lang="es">Español</button>
+    <button class="lang-btn" onclick="setLang('uk')" lang="uk">Українська</button>
+  </div>
+</nav>
+
+<!-- Declaration -->
+<main class="decl-section" id="declaration">
+  <p class="decl-meta" id="meta">世界への招待状 — 2026</p>
+  <h2 class="decl-heading" id="heading">あなたの手を見てください。</h2>
+  <p class="decl-heading-en" id="heading-en">OPEN YOUR EYES, LOOK AT YOUR HANDS.</p>
+  <div class="divider"></div>
+  <p class="decl-body" id="body"></p>
+  <div class="divider"></div>
+  <p class="decl-signature" id="sig">Team Shiojiri × ITER Animation Festival Initiative</p>
+</main>
+
+<!-- Footer -->
+<footer>
+  <p>#LOOKATYOURHANDS</p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://github.com/kiki054-n/Tri-Tetra-Integrator" target="_blank" rel="noopener">GitHub: kiki054-n / Tri-Tetra-Integrator</a>
+  </p>
+  <p style="margin-top:0.5rem;">
+    Zenodo DOI: <a href="https://doi.org/10.5281/zenodo.19704117" target="_blank" rel="noopener">10.5281/zenodo.19704117</a>
+  </p>
+  <p class="tag">友朋共生 — Yuuhou Kyousei</p>
+</footer>
+
+<script>
+const T = {
+  ja: {
+    meta: "世界への招待状 — 2026",
+    heading: "あなたの手を見てください。",
+    en: "OPEN YOUR EYES, LOOK AT YOUR HANDS.",
+    sig: "Team Shiojiri × ITER Animation Festival Initiative",
+    dir: "ltr",
+    body: `今、世界のどこかで戦争が続いている。
+核の影が人々を脅かしている。
+権力は肥大し、声は届かない。
+
+それでも——
+
+農夫は種を蒔く。
+音楽家は弦を爪弾く。
+子供は絵を描く。
+研究者は数式を書き続ける。
+
+あなたの手は、何をしているか。
+
+人を傷つける手か。
+富を奪う手か。
+それとも——
+何かを生み出す手か。
+誰かを支える手か。
+未来に木を植える手か。
+
+私たちは今、問いかける。
+
+核の炎を、創造の光に変えるために。
+分断された世界を、音楽と映像と詩でつなぐために。
+「見えない風を見て、飛ぶ」ために。
+
+あなたの手の物語を、見せてください。
+あなたが黙々と作り続けているものを、世界に届けてください。
+
+救世主は降臨しない。
+あなたが手を差し出したとき、初めて現れる。`
+  },
+  en: {
+    meta: "An Invitation to the World — 2026",
+    heading: "Look at your hands.",
+    en: "OPEN YOUR EYES, LOOK AT YOUR HANDS.",
+    sig: "Team Shiojiri × ITER Animation Festival Initiative",
+    dir: "ltr",
+    body: `Somewhere in this world, war continues.
+The shadow of nuclear threat looms over lives.
+Power swells. Voices go unheard.
+
+And yet——
+
+A farmer sows seeds.
+A musician plucks strings.
+A child draws a picture.
+A researcher writes equations in the dark.
+
+What are your hands doing?
+
+Are they hands that wound?
+Hands that take?
+Or——
+Hands that create?
+Hands that hold someone up?
+Hands that plant trees for a future unseen?
+
+We ask, today.
+
+To turn the fire of destruction into the light of creation.
+To connect a fractured world through music, image, and poetry.
+To see the invisible wind — and fly.
+
+Show us the story of your hands.
+Let the world see what you quietly build, day after day.
+
+The savior does not descend from above.
+The savior appears the moment you reach out your hand.`
+  },
+  fr: {
+    meta: "Une invitation au monde — 2026",
+    heading: "Regardez vos mains.",
+    en: "OPEN YOUR EYES, LOOK AT YOUR HANDS.",
+    sig: "Team Shiojiri × ITER Animation Festival Initiative",
+    dir: "ltr",
+    body: `Quelque part dans ce monde, la guerre continue.
+L'ombre du nucléaire pèse sur les vivants.
+Le pouvoir enfle. Les voix se perdent.
+
+Et pourtant——
+
+Un paysan sème.
+Un musicien joue.
+Un enfant dessine.
+Un chercheur écrit dans l'obscurité.
+
+Que font vos mains?
+
+Des mains qui blessent?
+Des mains qui prennent?
+Ou bien——
+Des mains qui créent?
+Des mains qui soutiennent?
+Des mains qui plantent des arbres pour demain?
+
+Nous posons la question, aujourd'hui.
+
+Pour transformer le feu de la destruction en lumière de création.
+Pour relier un monde fracturé par la musique, l'image et la poésie.
+Pour voir le vent invisible — et voler.
+
+Montrez-nous l'histoire de vos mains.
+Laissez le monde voir ce que vous construisez, silencieusement, jour après jour.
+
+Le sauveur ne descend pas du ciel.
+Il apparaît au moment où vous tendez la main.`
+  },
+  ar: {
+    meta: "دعوة إلى العالم — 2026",
+    heading: "انظر إلى يديك.",
+    en: "OPEN YOUR EYES, LOOK AT YOUR HANDS.",
+    sig: "Team Shiojiri × ITER Animation Festival Initiative",
+    dir: "rtl",
+    body: `في مكانٍ ما من هذا العالم، تستمر الحرب.
+يخيّم ظل السلاح النووي على الأرواح.
+السلطة تتضخم. الأصوات لا تُسمع.
+
+ومع ذلك——
+
+فلاحٌ يزرع البذور.
+موسيقيٌ يعزف على أوتاره.
+طفلٌ يرسم.
+باحثٌ يكتب المعادلات في الظلام.
+
+ماذا تفعل يداك؟
+
+هل هما يدان تجرحان؟
+يدان تأخذان؟
+أم——
+يدان تبدعان؟
+يدان تسندان أحداً؟
+يدان تزرعان الأشجار لمستقبل لم يُرَ بعد؟
+
+نسأل، اليوم.
+
+لنحوّل نار الدمار إلى نور الخلق.
+لنربط عالماً مُمزَّقاً بالموسيقى والصورة والشعر.
+لنرى الريح الخفية — ونطير.
+
+أرنا قصة يديك.
+دع العالم يرى ما تبنيه بصمتٍ، يوماً بعد يوم.
+
+المنقذ لا ينزل من السماء.
+يظهر في اللحظة التي تمدّ فيها يدك.`
+  },
+  zh: {
+    meta: "致世界的邀请 — 2026",
+    heading: "看看你的双手。",
+    en: "OPEN YOUR EYES, LOOK AT YOUR HANDS.",
+    sig: "Team Shiojiri × ITER Animation Festival Initiative",
+    dir: "ltr",
+    body: `世界的某个角落，战争仍在继续。
+核武器的阴影笼罩着生命。
+权力膨胀。声音消散。
+
+即便如此——
+
+农民播下种子。
+音乐家拨动琴弦。
+孩子拿起画笔。
+研究者在黑暗中书写方程式。
+
+你的双手，在做什么？
+
+是伤害他人的手？
+是掠夺财富的手？
+还是——
+创造事物的手？
+支撑他人的手？
+为看不见的未来植树的手？
+
+我们今天发问。
+
+为了将毁灭之火转化为创造之光。
+为了用音乐、影像与诗歌连接破碎的世界。
+为了看见无形的风——然后飞翔。
+
+请让我们看见你双手的故事。
+让世界看见你日复一日默默建造的一切。
+
+救世主不会从天而降。
+当你伸出双手的那一刻，救世主才会出现。`
+  },
+  es: {
+    meta: "Una invitación al mundo — 2026",
+    heading: "Mira tus manos.",
+    en: "OPEN YOUR EYES, LOOK AT YOUR HANDS.",
+    sig: "Team Shiojiri × ITER Animation Festival Initiative",
+    dir: "ltr",
+    body: `En algún lugar de este mundo, la guerra continúa.
+La sombra nuclear pesa sobre las vidas.
+El poder crece. Las voces no llegan.
+
+Y sin embargo——
+
+Un campesino siembra.
+Un músico pulsa las cuerdas.
+Un niño dibuja.
+Un investigador escribe ecuaciones en la oscuridad.
+
+¿Qué están haciendo tus manos?
+
+¿Son manos que hieren?
+¿Manos que arrebatan?
+¿O acaso——
+Manos que crean?
+Manos que sostienen a alguien?
+Manos que plantan árboles para un futuro aún no visto?
+
+Preguntamos, hoy.
+
+Para convertir el fuego de la destrucción en luz de creación.
+Para conectar un mundo fracturado a través de la música, la imagen y la poesía.
+Para ver el viento invisible — y volar.
+
+Muéstranos la historia de tus manos.
+Deja que el mundo vea lo que construyes en silencio, día tras día.
+
+El salvador no desciende del cielo.
+Aparece en el momento en que tú extiendes la mano.`
+  },
+  uk: {
+    meta: "Запрошення до світу — 2026",
+    heading: "Подивись на свої руки.",
+    en: "OPEN YOUR EYES, LOOK AT YOUR HANDS.",
+    sig: "Team Shiojiri × ITER Animation Festival Initiative",
+    dir: "ltr",
+    body: `Десь у цьому світі триває війна.
+Тінь ядерної загрози нависла над людьми.
+Влада розростається. Голоси не чути.
+
+І все ж——
+
+Фермер сіє насіння.
+Музикант торкається струн.
+Дитина малює.
+Дослідник пише рівняння в темряві.
+
+Що роблять твої руки?
+
+Вони ранять?
+Забирають?
+Чи——
+Творять?
+Підтримують когось?
+Садять дерева для майбутнього, якого ще не видно?
+
+Ми запитуємо сьогодні.
+
+Щоб перетворити вогонь руйнування на світло творення.
+Щоб з'єднати розколотий світ музикою, образом і поезією.
+Щоб побачити невидимий вітер — і злетіти.
+
+Покажи нам історію своїх рук.
+Нехай світ побачить те, що ти мовчки будуєш день за днем.
+
+Спаситель не зійде з небес.
+Він з'явиться в ту мить, коли ти простягнеш руку.`
+  }
+};
+
+function setLang(code) {
+  const t = T[code];
+  document.getElementById('meta').textContent = t.meta;
+  document.getElementById('heading').textContent = t.heading;
+  document.getElementById('heading-en').textContent = t.en;
+  document.getElementById('body').textContent = t.body;
+  document.getElementById('sig').textContent = t.sig;
+  document.getElementById('declaration').dir = t.dir;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.documentElement.lang = code;
+  document.getElementById('declaration').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Init
+document.getElementById('body').textContent = T['ja'].body;
+</script>
+</body>
+</html>
